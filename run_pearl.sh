@@ -148,7 +148,7 @@ do_cmd() {
 # setup_raspberry
 #-------------------------------------------------------------------
 setup_raspberry() {
-	BROWSER_PROGRAM="cromium-browser"
+	BROWSER_PROGRAM="chromium-browser"
 }
 
 #-------------------------------------------------------------------
