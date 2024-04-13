@@ -7,17 +7,20 @@ KERNEL_NAME=$(uname -s)
 IS_CLEAR_FLAG=0
 IS_PSEUDO_FLAG=0
 IS_VERBOSE_FLAG=0
-IF_PLAY_SHORT_SONG=0
 IF_PLAY_SONG=1
 IF_USE_BROWSER=1
 IS_LOOP=0
 
+SONG_FILE_NAME="like_a_surgeon.mp3"
+SONG_FILE_NAME_SHORT="like_a_surgeon-short.mp3"
+
+MUSIC_PLAYER_SONG="$SONG_FILE_NAME"
 MUSIC_PLAYER="cvlc"
 MUSIC_PLAYER_FLAGS=" --audio --play-and-exit"
-MUSIC_PLAY_LOOP_FLAG="--no-loop"
-BROWSER_PLAYER="chromium"
-BROWSER_FULLSCREEN_FLAGS="--start-fullscreen"
-BROWSER_PROGRAM="ecg-line-webcomponent/index.html"
+MUSIC_PLAYER_LOOP_CMD="--no-loop"
+BROWSER_PROGRAM="chromium"
+BROWSER_FULLSCREEN_CMD="--start-fullscreen"
+BROSWER_START_PROGRAM="ecg-line-webcomponent/index.html"
 KILL_CHROMIUM_CMD="pkill -o chromium"
 BROWSER_FULLSCREEN=1
 
@@ -37,8 +40,6 @@ MSG_INFO=2
 #----------------------------------------------
 # PROGRAM VARIABLES
 #----------------------------------------------
-SONG_FILE_NAME="like_a_surgeon.mp3"
-SONG_FILE_NAME_SHORT="like_a_surgeon-short.mp3"
 
 ################################################################################
 # SPECIFIC FUNCTIONS
@@ -49,7 +50,7 @@ SONG_FILE_NAME_SHORT="like_a_surgeon-short.mp3"
 #
 # Comments:
 #    Verify that the user is running as root
-#-------------------------------------------------------------------
+#------------------------------------------------------------------
 check_for_root() {
 	if [ "$EUID" -ne 0 ]; then
 		echo "Please run as root"
@@ -144,6 +145,13 @@ do_cmd() {
 }
 
 #-------------------------------------------------------------------
+# setup_raspberry
+#-------------------------------------------------------------------
+setup_raspberry() {
+	BROWSER_PROGRAM="cromium-browser"
+}
+
+#-------------------------------------------------------------------
 # help
 #-------------------------------------------------------------------
 help() {
@@ -151,33 +159,53 @@ help() {
 	echo "   $PROGRAM_NAME"
 	echo
 	echo "SYNOPSIS"
-	echo "   $PROGRAM_NAME [-h, --help], [-p, --pseudo], [-v, --verbose]"
-	echo "                 [--nosong] [--nobrowser] [-s, --shortsong]"
+	echo "   $PROGRAM_NAME"
+	echo "                 [-b, --browser BROWSER]"
+	echo "         flags:"
+	echo "                 [-l, -loop]"
+	echo "                 [--nobrowser]"
+	echo "                 [--nofullscreen]"
+	echo "                 [--nosong]"
+	echo "                 [-s, --short]"
 	echo "                 [--skipval]"
 	echo
+	echo "        debug:   [-h, --help], [-p, --pseudo], [-v, --verbose]"
 	echo "              If no options are given, the program starts a chromium browser"
-	echo " and the song. When the song is completed, the broser is closed.  If the song doesn't"
-	echo " the browser won't close."
+	echo " and the song. When the song is completed, the browser is closed.  If the song is not"
+	echo " started, the browser will not close."
 	echo
 	echo "DESCRIPTION"
 	echo "     $PROGRAM_NAME runs the browser and the song."
 	echo
 	echo "OPTIONS"
-	echo " --nobrowser"
-	echo " The browser will not be run."
 	echo
-	echo " --nosong"
-	echo " The song will not be played, and consequently, the browser will not be shutdown."
+	echo " -b, --browser BROWSER"
+	echo "  Sets the browser command."
 	echo
-	echo "--skipval"
-	echo " Skip the validation."
+	echo "FLAGS (turns things off/on)"
 	echo
 	echo " -l, --loop"
 	echo " Loop the song.  The only way to exit is to <Ctrl>-C."
 	echo
+	echo " --nobrowser"
+	echo " The browser will not be run."
+	echo
+	echo " --nofullscreen"
+	echo " The browser will not be set to fullscreen."
+	echo
+	echo " --nosong"
+	echo " The song will not be played, and consequently, the browser will not be shutdown."
+	echo
+	echo " -r, --raspberry"
+	echo " Setup defaults for the raspberry pi"
+	echo
 	echo " -s, --short"
 	echo " Use the short song file."
 	echo
+	echo "--skipval"
+	echo " Skip the validation."
+	echo
+	echo "DEBUG OPTIONS"
 	echo "   -h, --help"
 	echo "      Bring up the help text."
 	echo
@@ -204,15 +232,15 @@ help() {
 ################################################################################
 parse() {
 
-	SHORT=b:,l,s,h,p,v
-	LONG=browser:,loop,nobrowser,nofullscreen,nosong,short,skipval,help,pseudo,verbose OPTS=$(getopt --options $SHORT --longoptions $LONG -- "${@}")
+	SHORT=b:,l,r,s,h,p,v
+	LONG=browser:,loop,nobrowser,nofullscreen,nosong,raspberry,short,skipval,help,pseudo,verbose OPTS=$(getopt --options $SHORT --longoptions $LONG -- "${@}")
 
 	eval set -- "$OPTS"
 
 	while :; do
 		case "$1" in
 		-b | --browser)
-			BROWSER_PLAYER=$2
+			BROWSER_PROGRAM=$2
 			shift 2
 			;;
 		--nobrowser)
@@ -220,11 +248,15 @@ parse() {
 			shift 1
 			;;
 		--nofullscreen)
-			BROWSER_FULLSCREEN_FLAGS=""
+			BROWSER_FULLSCREEN_CMD=""
 			shift 1
 			;;
 		--nosong)
 			IF_PLAY_SONG=0
+			shift 1
+			;;
+		-r | --raspberry)
+			setup_raspberry
 			shift 1
 			;;
 		--skipval)
@@ -232,11 +264,11 @@ parse() {
 			shift 1
 			;;
 		-l | --loop)
-			MUSIC_PLAY_LOOP_FLAG="--loop"
+			MUSIC_PLAYER_LOOP_CMD="--loop"
 			shift 1
 			;;
 		-s | --short)
-			IF_PLAY_SHORT_SONG=1
+			MUSIC_PLAYER_SONG="$SONG_FILE_NAME_SHORT"
 			shift 1
 			;;
 		-h | --help)
@@ -276,18 +308,18 @@ parse() {
 	is_verbose "-------------------------------------------------------------"
 	is_verbose "MUSIC_PLAYER:              $MUSIC_PLAYER"
 	is_verbose "MUSIC_PLAYER_FLAGS:        $MUSIC_PLAYER_FLAGS"
-	is_verbose "MUSIC_PLAYER_LOOP_FLAG:    $MUSIC_PLAYER_LOOP_FLAG"
+	is_verbose "MUSIC_PLAYER_LOOP_CMD:     $MUSIC_PLAYER_LOOP_CMD"
+	is_verbose "MUSIC_PLAYER_SONG:         $MUSIC_PLAYER_SONG"
 	is_verbose "SONG_FILE_NAME:            $SONG_FILE_NAME"
 	is_verbose "SONG_FILE_NAME_SHORT:      $SONG_FILE_NAME_SHORT"
-	is_verbose "BROWSER_PROGRAM:           $BROWSER_PLAYER"
-	is_verbose "BROWSER_FULLSCREEN_FLAGS:  $BROWSER_FULLSCREEN_FLAGS"
-	is_verbose "BROWSER_PROGRAM:           $BROWSER_PROGRAM"
+	is_verbose "BROSWER_PROGRAM:           $BROWSER_PROGRAM"
+	is_verbose "BROWSER_FULLSCREEN_CMD:    $BROWSER_FULLSCREEN_CMD"
+	is_verbose "BROSWER_START_PROGRAM:     $BROSWER_START_PROGRAM"
 	is_verbose "-------------------------------------------------------------"
-	is_verbose "Options"
+	is_verbose "Flags"
 	is_verbose "-------------------------------------------------------------"
 	is_verbose "IF_USE_BROWSER:            $IF_USE_BROWSER"
 	is_verbose "IF_PLAY_SONG:              $IF_PLAY_SONG"
-	is_verbose "IF_PLAY_SHORT_SONG:        $IF_PLAY_SHORT_SONG"
 	is_verbose "SKIP_VALIDATION:           $SKIP_VALIDATION"
 	is_verbose "-------------------------------------------------------------"
 	is_verbose "Standard Options"
@@ -304,23 +336,15 @@ parse() {
 # validate: validate all necessary programms, etc
 ################################################################################
 validate() {
-	VALIDATE_RVAL=0
-	RVAL=0
-
 	# VERIFY media player
-	RVAL=$(which $(MUSIC_PLAYER))
-	if [[ RVAL -ne 0 ]]; then
-		err_msg $MSG_ERROR "Unable to find command line music player $MUSIC_PLAYER" 0
-		VALIDATE_RVAL=1
+	if ! command -v $MUSIC_PLAYER &>/dev/null; then
+		err_msg $MSG_ERROR "Unable to find music player $MUSIC_PLAYER" 1
 	fi
 
 	# VERIFY browser
-	RVAL=$(which $(BROWSER_PLAYER))
-	if [[ RVAL -ne 0 ]]; then
-		err_msg $MSG_ERROR "Unable to find command line browser $MUSIC_PLAYER" 0
-		VALIDATE_RVAL=1
+	if ! command -v $BROWSER_PROGRAM &>/dev/null; then
+		err_msg $MSG_ERROR "Unable to find browser program $BROWSER_PROGRAM" 2
 	fi
-
 }
 
 ################################################################################
@@ -341,20 +365,16 @@ main() {
 
 	# Start the browsser in the backbround
 	if [[ $IF_USE_BROWSER -eq 1 ]]; then
-		# cmd="$BROWSER_PLAYER $BROWSER_FULLSCREEN_FLAGS $BROWSER_PROGRAM "
+		# cmd="$BROWSER_PROGRAM $BROWSER_FULLSCREEN_CMD $BROSWER_START_PROGRAM "
 		# $(cmd) &
-		$BROWSER_PLAYER $BROWSER_FULLSCREEN_FLAGS $BROWSER_PROGRAM &
+		$BROWSER_PROGRAM $BROWSER_FULLSCREEN_CMD $BROSWER_START_PROGRAM &
 	fi
 
 	# Start the song (short or standard)
 	if [[ $IF_PLAY_SONG -eq 1 ]]; then
-		if [[ $IF_PLAY_SHORT_SONG -eq 1 ]]; then
-			($MUSIC_PLAYER $MUSIC_PLAYER_FLAGS $SONG_FILE_NAME_SHORT $MUSIC_PLAY_LOOP_FLAG)
-		else
-			($MUSIC_PLAYER $MUSIC_PLAYER_FLAGS $SONG_FILE_NAME $MUSIC_PLAY_LOOP_FLAG)
-			# cmd="$MUSIC_PLAYER $MUSIC_PLAYER_FLAGS $SONG_FILE_NAME"
-			# do_cmd "$cmd"
-		fi
+		($MUSIC_PLAYER $MUSIC_PLAYER_FLAGS $MUSIC_PLAYER_SONG $MUSIC_PLAYER_LOOP_CMD)
+		# cmd="$MUSIC_PLAYER $MUSIC_PLAYER_FLAGS $SONG_FILE_NAME"
+		# do_cmd "$cmd"
 		is_verbose "Music player exited"
 		is_verbose "Checking if browser was used, to determine if we should kill"
 		# After the muisc is done, if we have started the browser, kill it.

@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,10 +6,31 @@
     <link rel="stylesheet" href="assets/css/styles.css">
   </head>
   <body>
+    <div id="ecg-container">
+      <div id="ecg-text">My Example</div>
+      <ecg-line></ecg-line>
+    </div>
     <script>
       (function() {
-        document.body.innerHTML += '<ecg-line></ecg-line>';
-        ecgLine((bang) => setInterval(() => bang(), 1000));
+        const heartRates = [
+          {rate: 60, beats: 10, text: "Resting"},
+          {rate: 120, beats: 20, text: "Exercise"},
+          {rate: 80, beats: 15, text: "Recovery"}
+        ];
+        let currentRateIndex = 0;
+        let currentBeatCount = 0;
+        const updateRate = () => {
+          const rateInfo = heartRates[currentRateIndex];
+          document.getElementById('ecg-text').innerText = rateInfo.text;
+          ecgLine((bang) => setInterval(() => bang(), 60000 / rateInfo.rate));
+          currentBeatCount++;
+          if (currentBeatCount >= rateInfo.beats) {
+            currentBeatCount = 0;
+            currentRateIndex = (currentRateIndex + 1) % heartRates.length;
+          }
+        };
+        updateRate();
+        setInterval(updateRate, 1000);
       })();
     </script>
   </body>
