@@ -1,21 +1,33 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html>
   <head>
     <script src="dist/ecg-webcomponent.js"></script>
     <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+      #ecg-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      #ecg-text {
+        color: red;
+        font-size: 20px;
+        <!-- text-align: center; -->
+      }
+    </style>
   </head>
   <body>
     <div id="ecg-container">
       <div id="ecg-text">My Example</div>
-      <ecg-line></ecg-line>
     </div>
     <script>
       (function() {
+        document.body.innerHTML += '<ecg-line></ecg-line>';
         const heartRates = [
-          {rate: 60, beats: 10, text: "Resting"},
+          {rate: 60,  beats: 10, text: "Resting"},
           {rate: 120, beats: 10, text: "Exercise"},
-          {rate: 80, beats: 10, text: "Recovery"}
+          {rate: 80,  beats: 10, text: "Recovery"}
         ];
         let currentRateIndex = 0;
         let currentBeatCount = 0;
