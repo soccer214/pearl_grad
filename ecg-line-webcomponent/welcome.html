@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Pearl</title>
+<style>
+  body {
+    font-family: 'Great Vibes', cursive;
+    text-align: center;
+    padding-top: 100px;
+    background-color: black; /* Set background color to black */
+    color: white; /* Set text color to white */
+    position: relative; /* Set position relative for absolute positioning of hearts */
+  }
+  .text {
+    font-size: 5em; /* Increase font size */
+  }
+  .hidden {
+    display: none;
+  }
+  .heart {
+    position: absolute; /* Position hearts absolutely */
+    width: 50px; /* Set heart width */
+    height: auto; /* Maintain aspect ratio */
+    pointer-events: none; /* Prevent interaction with hearts */
+    z-index: -1; /* Ensure hearts are behind text */
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="welcomeText" class="text">Welcome Pearl</div>
+  <div id="funText" class="text hidden">We thought it might be fun</div>
+  <div id="seeText" class="text hidden">for you to walk</div>
+  <div id="line4" class="text hidden">through your college experience</div>
+  <div id="line5" class="text hidden">from a different perspective...</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function(){
+    // Function to create a heart at a random position
+    function createHeart(color) {
+      // Create SVG element
+      var heart = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      heart.setAttribute("class", "heart");
+      heart.setAttribute("viewBox", "0 0 24 24");
+      
+      // Create path element for heart shape
+      var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z");
+      path.setAttribute("fill", color); // Set heart color
+      
+      // Append path to SVG element
+      heart.appendChild(path);
+      
+      // Randomize position
+      var posX = Math.random() * window.innerWidth;
+      var posY = Math.random() * window.innerHeight;
+      
+      // Set position of heart
+      heart.style.left = posX + "px";
+      heart.style.top = posY + "px";
+      
+      // Append heart to body
+      document.body.appendChild(heart);
+    }
+    
+    // Create hearts in different colors
+    for (var i = 0; i < 100; i++) { // Create 100 hearts
+      var colors = ["red", "blue", "white", "green", "orange"]; // Array of colors
+      var randomColor = colors[Math.floor(Math.random() * colors.length)]; // Random color from array
+      createHeart(randomColor);
+    }
+    
+    // Fade out hearts function
+    function fadeOutHearts() {
+      $(".heart").fadeOut(2000); // Fade out all hearts
+    }
+    
+    // Fade out 'Welcome Pearl'
+    $("#welcomeText").fadeOut(2000, function(){
+      // Fade in 'We thought it might be fun'
+      $("#funText").fadeIn(2000, function(){
+        // Fade in 'for you to see'
+        $("#seeText").fadeIn(2000, function(){
+          // Fade in 'through your college experience'
+          $("#line4").fadeIn(2000, function(){
+            // Fade in 'from a different perspective...'
+            $("#line5").fadeIn(2000, function(){
+              // After all text animations are done, fade out everything including hearts
+              fadeOutHearts(); // Call the function to fade out hearts
+              $("#funText, #seeText, #line4, #line5").fadeOut(2000, function() {
+                // After all animations are done, redirect to the second HTML file
+                window.location.href = "index.html";
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+</script>
+</body>
+</html>
