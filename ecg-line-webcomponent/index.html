@@ -10,13 +10,43 @@
         align-items: center;
         justify-content: center;
         height: 100vh;  /* Ensure the container has enough height */
+        margin-top: 10px;  /* Adjust this value to suit your needs */
+      }
+      #ecg-title {
+        color: blue;
+        font-size: 48px;
+        margin-top: 0px;  /* Adjust this value to suit your needs */
+        <!-- text-align: center; -->
       }
       #ecg-text {
         color: red;
         font-size: 48px;
-        text-align: center;
         margin-top: 200px;  /* Adjust this value to suit your needs */
-        margin-left: 200px;  /* Adjust this value to suit your needs */
+        <!-- text-align: center; -->
+      }
+      #ecg-subtitle {
+        color: blue;
+        font-size: 48px;
+        margin-top: 200px;  /* Adjust this value to suit your needs */
+        <!-- text-align: center; -->
+      }
+      #ecg-subsubtitle {
+        color: yellow;
+        font-size: 48px;
+        margin-top: 200px;  /* Adjust this value to suit your needs */
+        <!-- text-align: center; -->
+      }
+      #ecg-waveform {
+        color: yellow;
+        font-size: 48px;
+        margin-top: 200px;  /* Adjust this value to suit your needs */
+        <!-- text-align: center; -->
+      }
+      #ecg-line {
+        color: red;
+        font-size: 48px;
+        margin-top: 200px;  /* Adjust this value to suit your needs */
+        margin-left: 2101px;
         <!-- text-align: center; -->
       }
     </style>
@@ -25,8 +55,10 @@
   <body>
     <div id="ecg-container">
       <div id="ecg-text">My Example</div>
-    </div>
-    <script>
+      <div id="ecg-subtitle">Aaron</div>
+      <div id="ecg-subsubtitle"></div>
+      <div id="ecg-waveform"> </div>
+      <script>
       (function() {
         document.body.innerHTML += '<ecg-line></ecg-line>';
         const heartRates = [
@@ -49,6 +81,7 @@
         updateRate();
         setInterval(updateRate, 1000);
       })();
-    </script>
+      </script>
+      <\div>
   </body>
 </html>
