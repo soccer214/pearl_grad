@@ -17,7 +17,8 @@ INDEX_FILE_NAME="welcome.html"
 
 MUSIC_PLAYER_SONG="$SONG_FILE_NAME"
 MUSIC_PLAYER="cvlc"
-MUSIC_PLAYER_FLAGS=" --audio --play-and-exit"
+# MUSIC_PLAYER_FLAGS=" --audio --fullscreen --play-and-exit --video-on-top"
+MUSIC_PLAYER_FLAGS="--fullscreen --play-and-exit --video-on-top"
 MUSIC_PLAYER_LOOP_CMD="--no-loop"
 BROWSER_PROGRAM="chromium-browser"
 BROWSER_FULLSCREEN_CMD="--start-fullscreen"
@@ -382,8 +383,6 @@ main() {
 	# Start the song (short or standard)
 	if [[ $IF_PLAY_SONG -eq 1 ]]; then
 		($MUSIC_PLAYER $MUSIC_PLAYER_FLAGS $MUSIC_PLAYER_SONG $MUSIC_PLAYER_LOOP_CMD)
-		# cmd="$MUSIC_PLAYER $MUSIC_PLAYER_FLAGS $SONG_FILE_NAME"
-		# do_cmd "$cmd"
 		is_verbose "Music player exited"
 		is_verbose "Checking if browser was used, to determine if we should kill"
 		# After the muisc is done, if we have started the browser, kill it.
