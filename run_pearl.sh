@@ -246,11 +246,11 @@ parse() {
 	while :; do
 		case "$1" in
 		-b | --browser)
-			BROWSER_PROGRAM=$2
+			BROWSER_PROGRAM="$2"
 			shift 2
 			;;
 		-s | --start)
-			BROWSER_START_PROGRAM="$2"
+			BROSWER_START_PROGRAM="$2"
 			shift 2
 			;;
 		--nobrowser)
@@ -277,7 +277,7 @@ parse() {
 			MUSIC_PLAYER_LOOP_CMD="--loop"
 			shift 1
 			;;
-		-s | --short)
+		--short)
 			MUSIC_PLAYER_SONG="$SONG_FILE_NAME_SHORT"
 			shift 1
 			;;
@@ -375,9 +375,9 @@ main() {
 
 	# Start the browsser in the backbround
 	if [[ $IF_USE_BROWSER -eq 1 ]]; then
-		# cmd="$BROWSER_PROGRAM $BROWSER_FULLSCREEN_CMD $BROSWER_START_PROGRAM "
-		# $(cmd) &
-		$BROWSER_PROGRAM $BROWSER_FULLSCREEN_CMD $BROSWER_START_PROGRAM &
+		cmd="$BROWSER_PROGRAM $BROWSER_FULLSCREEN_CMD $BROSWER_START_PROGRAM "
+		do_cmd "${cmd} &"
+		# $BROWSER_PROGRAM $BROWSER_FULLSCREEN_CMD $BROSWER_START_PROGRAM &
 	fi
 
 	# Start the song (short or standard)

@@ -1,7 +1,7 @@
 var ecg;
 (function(ecg) {
-  var HEIGHT = 125;
-  var WIDTH = 400;
+  var HEIGHT = 200;
+  var WIDTH = 800;
   var INTERVAL = 30;
   var CURVE_COLOR = "#22ff22";
   var heartData = [0, 0, 0, 0, 0];

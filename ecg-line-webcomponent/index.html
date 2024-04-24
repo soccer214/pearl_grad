@@ -3,52 +3,52 @@
   <head>
     <script src="dist/ecg-webcomponent.js"></script>
     <link rel="stylesheet" href="assets/css/styles.css">
-        <style>
-      #ecg-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;  /* Ensure the container has enough height */
-        margin-top: 10px;  /* Adjust this value to suit your needs */
-      }
-      #ecg-title {
-        color: blue;
-        font-size: 48px;
-        margin-top: 0px;  /* Adjust this value to suit your needs */
-        <!-- text-align: center; -->
-      }
-      #ecg-text {
-        color: red;
-        font-size: 48px;
-        margin-top: 200px;  /* Adjust this value to suit your needs */
-        <!-- text-align: center; -->
-      }
-      #ecg-subtitle {
-        color: blue;
-        font-size: 48px;
-        margin-top: 200px;  /* Adjust this value to suit your needs */
-        <!-- text-align: center; -->
-      }
-      #ecg-subsubtitle {
-        color: yellow;
-        font-size: 48px;
-        margin-top: 200px;  /* Adjust this value to suit your needs */
-        <!-- text-align: center; -->
-      }
-      #ecg-waveform {
-        color: yellow;
-        font-size: 48px;
-        margin-top: 200px;  /* Adjust this value to suit your needs */
-        <!-- text-align: center; -->
-      }
-      #ecg-line {
-        color: red;
-        font-size: 48px;
-        margin-top: 200px;  /* Adjust this value to suit your needs */
-        margin-left: 2101px;
-        <!-- text-align: center; -->
-      }
+    <style>
+    #ecg-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;  /* Ensure the container has enough height */
+    margin-top: 10px;  /* Adjust this value to suit your needs */
+    }
+    #ecg-title {
+    color: blue;
+    font-size: 48px;
+    margin-top: 0px;  /* Adjust this value to suit your needs */
+    <!-- text-align: center; -->
+    }
+    #ecg-text {
+    color: red;
+    font-size: 48px;
+    margin-top: 200px;  /* Adjust this value to suit your needs */
+    <!-- text-align: center; -->
+    }
+    #ecg-subtitle {
+    color: blue;
+    font-size: 48px;
+    margin-top: 200px;  /* Adjust this value to suit your needs */
+    <!-- text-align: center; -->
+    }
+    #ecg-subsubtitle {
+    color: yellow;
+    font-size: 48px;
+    margin-top: 200px;  /* Adjust this value to suit your needs */
+    <!-- text-align: center; -->
+    }
+    #ecg-waveform {
+    color: yellow;
+    font-size: 48px;
+    margin-top: 200px;  /* Adjust this value to suit your needs */
+    <!-- text-align: center; -->
+    }
+    #ecg-line {
+    color: red;
+    font-size: 48px;
+    margin-top: 200px;  /* Adjust this value to suit your needs */
+    margin-left: 2101px;
+    <!-- text-align: center; -->
+    }
     </style>
 
   </head>
@@ -58,50 +58,69 @@
       <div id="ecg-subtitle">Aaron</div>
       <div id="ecg-subsubtitle"></div>
       <div id="ecg-waveform"> </div>
-      <script>
-      (function() {
-        document.body.innerHTML += '<ecg-line></ecg-line>';
-        const heartRates = [
-          {rate: 40,  beats: 10, text: "40/10"},
-          {rate: 80,  beats: 20, text: "80/20"},
-          {rate: 120,  beats: 30, text: "120/30"},
-          {rate: 4,  beats: 10, text: "4/10"},
-          {rate: 80,  beats: 10, text: "MMBIO 151"},
-          {rate: 120,  beats: 10, text: "MMBIO 240"},
-          {rate: 80,  beats: 10, text: "MMBIO 241"},
-          {rate: 80,  beats: 10, text: "MMBIO 261"},
-          {rate: 80,  beats: 10, text: "MMMIO 360"},
-          {rate: 80,  beats: 10, text: "MMMIO 360"},
-          {rate: 80,  beats: 10, text: "MMBIO 364"},
-          {rate: 80,  beats: 10, text: "MMBIO 366"},
-          {rate: 80,  beats: 10, text: "MMBIO 461"},
-          {rate: 80,  beats: 10, text: "CHEM 105"},
-          {rate: 80,  beats: 10, text: "CHEM 106"},
-          {rate: 80,  beats: 10, text: "CHEM 107"},
-          {rate: 80,  beats: 10, text: "PHSCS 105"},
-          {rate: 80,  beats: 10, text: "CHEM 285"},
-          {rate: 80,  beats: 10, text: "MATH 112"},
-          {rate: 80,  beats: 10, text: "CELL 305"},
-          {rate: 80,  beats: 10, text: "CELL 325"},
-          {rate: 80,  beats: 10, text: "MMBIO 122"},
-          {rate: 1,   beats: 10, text: "Flat"},
-        ];
-        let currentRateIndex = 0;
-        let currentBeatCount = 0;
-        const updateRate = () => {
-          const rateInfo = heartRates[currentRateIndex];
-          document.getElementById('ecg-text').innerText = rateInfo.text;
-          ecgLine((bang) => setInterval(() => bang(), 60000 / rateInfo.rate));
-          currentBeatCount++;
-          if (currentBeatCount >= rateInfo.beats) {
-            currentBeatCount = 0;
-            currentRateIndex = (currentRateIndex + 1) % heartRates.length;
-          }
-        };
-        updateRate();
-        setInterval(updateRate, 1000);
-      })();
-      </script>
-      <\div>
+      <div>
+        <script>
+        (function() {
+          document.body.innerHTML += '<ecg-line></ecg-line>';
+          const heartRates = [
+            {rate: 40,  interval: 2000, beats: 5, text: "40/2000"},
+            {rate: 80,  interval: 1000, beats: 5, text: "80/1000"},
+            {rate: 40,  interval: 2000, beats: 5, text: "40/2000"}, // Doesn't drop down to 40, but stays at 80
+            {rate: 120,  interval: 500, beats: 5, text: "40/2000"},
+            {rate: 160, interval:  250, beats: 5, text: "120/500"},
+            {rate: 200,  interval: 125, beats: 5, text: "40/2000"},
+            {rate: 240,  interval: 62, beats: 5, text: "5/8000"},
+            {rate: 280,  interval: 31, beats: 5, text: "5/8000"},
+            // {rate: 120,  beats: 30, text: "120/30"},
+            // {rate: 4,  beats: 10, text: "4/10"},
+            // {rate: 80,  beats: 10, text: "MMBIO 151"},
+            // {rate: 120,  beats: 10, text: "MMBIO 240"},
+            // {rate: 80,  beats: 10, text: "MMBIO 241"},
+            // {rate: 80,  beats: 10, text: "MMBIO 261"},
+            // {rate: 80,  beats: 10, text: "MMMIO 360"},
+            // {rate: 80,  beats: 10, text: "MMMIO 360"},
+            // {rate: 80,  beats: 10, text: "MMBIO 364"},
+            // {rate: 80,  beats: 10, text: "MMBIO 366"},
+            // {rate: 80,  beats: 10, text: "MMBIO 461"},
+            // {rate: 80,  beats: 10, text: "CHjEM 105"},
+            // {rate: 80,  beats: 10, text: "CHEM 106"},
+            // {rate: 80,  beats: 10, text: "CHEM 107"},
+            // {rate: 80,  beats: 10, text: "PHSCS 105"},
+            // {rate: 80,  beats: 10, text: "CHEM 285"},
+            // {rate: 80,  beats: 10, text: "MATH 112"},
+            // {rate: 80,  beats: 10, text: "CELL 305"},
+            // {rate: 80,  beats: 10, text: "CELL 325"},
+            // {rate: 80,  beats: 10, text: "MMBIO 122"},
+            // {rate: 1,   beats: 10, text: "Flat"},
+          ];
+
+          var currentRateIndex = 0;
+          let currentBeatCount = 0;
+          var intervalID = 0;
+
+          console.log("[updateRate] currentRateIndex: " + currentRateIndex )
+          const updateRate = () => {
+            console.log("[updateRate] entry")
+            document.getElementById('ecg-text').innerText = heartRates[currentRateIndex].rate;
+            // ecgLine((bang) => setInterval(() => bang(), 60000 / heartRates[currentRateIndex].rate));
+            ecgLine((bang) => setInterval(() => bang(), heartRates[currentRateIndex].interval));
+            currentBeatCount++;
+
+            console.log("[updateRate] currentBeatCount: " + currentBeatCount )
+            if (currentBeatCount >= heartRates[currentRateIndex].beats) {
+              currentBeatCount = 0;
+              currentRateIndex = (currentRateIndex + 1) % heartRates.length;
+              console.log("[updateRate] currentRateIndex: " + currentRateIndex )
+              clearInterval(intervalID);
+              intervalID = setInterval(updateRate, heartRates[currentRateIndex].interval);
+            }
+          };
+          console.log("calling setInterval()...")
+          // updateRate();
+          intervalID = setInterval(updateRate, heartRates[currentRateIndex].interval);
+        })();
+        </script>
+      </div>
+    </div>
   </body>
 </html>
