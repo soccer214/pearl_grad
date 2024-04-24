@@ -13,6 +13,7 @@ IS_LOOP=0
 
 SONG_FILE_NAME="like_a_surgeon.mp3"
 SONG_FILE_NAME_SHORT="like_a_surgeon-short.mp3"
+INDEX_FILE_NAME="welcome.html"
 
 MUSIC_PLAYER_SONG="$SONG_FILE_NAME"
 MUSIC_PLAYER="cvlc"
@@ -20,7 +21,7 @@ MUSIC_PLAYER_FLAGS=" --audio --play-and-exit"
 MUSIC_PLAYER_LOOP_CMD="--no-loop"
 BROWSER_PROGRAM="chromium"
 BROWSER_FULLSCREEN_CMD="--start-fullscreen"
-BROSWER_START_PROGRAM="ecg-line-webcomponent/index.html"
+BROSWER_START_PROGRAM="ecg-line-webcomponent/welcome.html"
 KILL_CHROMIUM_CMD="pkill -o chromium"
 BROWSER_FULLSCREEN=1
 
@@ -182,6 +183,10 @@ help() {
 	echo " -b, --browser BROWSER"
 	echo "  Sets the browser command."
 	echo
+	echo " -s, --start FILE"
+	echo "  Calls the starting point, by default is ${BROSWER_START_PROGRAM}."
+	echo
+	echo
 	echo "FLAGS (turns things off/on)"
 	echo
 	echo " -l, --loop"
@@ -199,7 +204,7 @@ help() {
 	echo " -r, --raspberry"
 	echo " Setup defaults for the raspberry pi"
 	echo
-	echo " -s, --short"
+	echo " --short"
 	echo " Use the short song file."
 	echo
 	echo "--skipval"
@@ -232,8 +237,8 @@ help() {
 ################################################################################
 parse() {
 
-	SHORT=b:,l,r,s,h,p,v
-	LONG=browser:,loop,nobrowser,nofullscreen,nosong,raspberry,short,skipval,help,pseudo,verbose OPTS=$(getopt --options $SHORT --longoptions $LONG -- "${@}")
+	SHORT=b:,l,r,s:,h,p,v
+	LONG=browser:,loop,nobrowser,nofullscreen,nosong,raspberry,short,skipval,start:,help,pseudo,verbose OPTS=$(getopt --options $SHORT --longoptions $LONG -- "${@}")
 
 	eval set -- "$OPTS"
 
@@ -241,6 +246,10 @@ parse() {
 		case "$1" in
 		-b | --browser)
 			BROWSER_PROGRAM=$2
+			shift 2
+			;;
+		-s | --start)
+			BROWSER_START_PROGRAM="$2"
 			shift 2
 			;;
 		--nobrowser)
