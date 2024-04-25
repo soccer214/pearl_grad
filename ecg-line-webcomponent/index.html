@@ -5,8 +5,9 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <style>
     #ecg-container {
-    display: flex;
-    flex-direction: column;
+    position: absolute;
+    <!-- display: flex; -->
+    <!-- flex-direction: column; -->
     align-items: center;
     justify-content: center;
     height: 100vh;  /* Ensure the container has enough height */
@@ -20,20 +21,8 @@
     }
     #ecg-text {
     color: red;
-    font-size: 48px;
-    margin-top: 200px;  /* Adjust this value to suit your needs */
-    <!-- text-align: center; -->
-    }
-    #ecg-subtitle {
-    color: blue;
-    font-size: 48px;
-    margin-top: 200px;  /* Adjust this value to suit your needs */
-    <!-- text-align: center; -->
-    }
-    #ecg-subsubtitle {
-    color: yellow;
-    font-size: 48px;
-    margin-top: 200px;  /* Adjust this value to suit your needs */
+    font-size: 96px;
+    margin-top: 300px;  /* Adjust this value to suit your needs */
     <!-- text-align: center; -->
     }
     #ecg-waveform {
@@ -54,11 +43,8 @@
   </head>
   <body>
     <div id="ecg-container">
-      <div id="ecg-text">My Example</div>
-      <div id="ecg-subtitle">Aaron</div>
-      <div id="ecg-subsubtitle"></div>
-      <div id="ecg-waveform"> </div>
-      <div>
+      <div id="ecg-text"></div>
+      <div id="ecg-waveform"> 
         <script>
         (function() {
           document.body.innerHTML += '<ecg-line></ecg-line>';
@@ -134,7 +120,7 @@
           intervalID = setInterval(updateRate, rate_conversion[heartRates[currentRateIndex].rate]);
         })();
         </script>
+        </div>
       </div>
-    </div>
   </body>
 </html>
