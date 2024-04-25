@@ -63,47 +63,61 @@
         (function() {
           document.body.innerHTML += '<ecg-line></ecg-line>';
           const heartRates = [
-            {rate: 40,  interval: 2000, beats: 5, text: "40/2000"},
-            {rate: 80,  interval: 1000, beats: 5, text: "80/1000"},
-            {rate: 40,  interval: 2000, beats: 5, text: "40/2000"}, // Doesn't drop down to 40, but stays at 80
-            {rate: 120,  interval: 500, beats: 5, text: "40/2000"},
-            {rate: 160, interval:  250, beats: 5, text: "120/500"},
-            {rate: 200,  interval: 125, beats: 5, text: "40/2000"},
-            {rate: 240,  interval: 62, beats: 5, text: "5/8000"},
-            {rate: 280,  interval: 31, beats: 5, text: "5/8000"},
-            // {rate: 120,  beats: 30, text: "120/30"},
-            // {rate: 4,  beats: 10, text: "4/10"},
-            // {rate: 80,  beats: 10, text: "MMBIO 151"},
-            // {rate: 120,  beats: 10, text: "MMBIO 240"},
-            // {rate: 80,  beats: 10, text: "MMBIO 241"},
-            // {rate: 80,  beats: 10, text: "MMBIO 261"},
-            // {rate: 80,  beats: 10, text: "MMMIO 360"},
-            // {rate: 80,  beats: 10, text: "MMMIO 360"},
-            // {rate: 80,  beats: 10, text: "MMBIO 364"},
-            // {rate: 80,  beats: 10, text: "MMBIO 366"},
-            // {rate: 80,  beats: 10, text: "MMBIO 461"},
-            // {rate: 80,  beats: 10, text: "CHjEM 105"},
-            // {rate: 80,  beats: 10, text: "CHEM 106"},
-            // {rate: 80,  beats: 10, text: "CHEM 107"},
-            // {rate: 80,  beats: 10, text: "PHSCS 105"},
-            // {rate: 80,  beats: 10, text: "CHEM 285"},
-            // {rate: 80,  beats: 10, text: "MATH 112"},
-            // {rate: 80,  beats: 10, text: "CELL 305"},
-            // {rate: 80,  beats: 10, text: "CELL 325"},
-            // {rate: 80,  beats: 10, text: "MMBIO 122"},
-            // {rate: 1,   beats: 10, text: "Flat"},
+            {rate:  6,  interval: 2000, beats: 5, text: "test: 6" },
+            {rate:  3,  interval: 1000, beats: 5, text: "test: 3" },
+            {rate:  9,  interval: 2000, beats: 5, text: "test: 9" }, // Doesn't drop down to 40, but stays at 80
+            { rate: 10, interval: 1000, beats: 10, text: "OCHEM 352" },
+            { rate: 9,  interval: 1000, beats: 10, text: "OCHEM 351" },
+            { rate: 9,  interval: 1000, beats: 10, text: "Dr Wilson" },
+            { rate: 1,  interval: 1000, beats: 10, text: "Life Sciences Tests" },
+            { rate: 7,  interval: 1000, beats: 10, text: "MMBIO 364 Bacterial Pathogenesis" },
+            { rate: 9,  interval: 1000, beats: 10, text: "Getting Married" },
+            { rate: 7,  interval: 1000, beats: 10, text: "MMBIO 463 Immunolog" },
+            { rate: 7,  interval: 1000, beats: 10, text: "CHEM 105" },
+            { rate: 8,  interval: 1000, beats: 10, text: "CELL 210 (Human Anatomy)" },
+            { rate: 5,  interval: 1000, beats: 10, text: "History Class" },
+            { rate: 3,  interval: 1000, beats: 10, text: "Steak Express" },
+            { rate: 10, interval: 1000, beats: 10, text: "Tutoring Jared" },
+            { rate: 3,  interval: 1000, beats: 10, text: "Student Development" },
+            { rate: 2,  interval: 1000, beats: 10, text: "Getting a Post-graduation Job" },
+            { rate: 5,  interval: 1000, beats: 10, text: "Surprise Parties" },
+            { rate: 9,  interval: 1000, beats: 10, text: "MCAT Prep" },
+            { rate: 8,  interval: 1000, beats: 10, text: "PHSCS 107" },
+            { rate: 8,  interval: 1000, beats: 10, text: "PHSCS 106" },
+            { rate: 7,  interval: 1000, beats: 10, text: "PHSCS 105" },
+            { rate: 4,  interval: 1000, beats: 10, text: "PHSCS 108" },
+            { rate: 8,  interval: 1000, beats: 10, text: "Changing from ResearchSchool to Med" },
+            { rate: 8,  interval: 1000, beats: 10, text: "Living with Jared" },
+            { rate: 10, interval: 1000, beats: 10, text: "Christmas Program" },
+            { rate: 3,  interval: 1000, beats: 10, text: "Styx Cover/Parody Band" },
+            { rate: 0,  interval: 1000, beats: 10, text: "Enjoying Every Spring" },
+            { rate: 7,  interval: 1000, beats: 10, text: "Learning to Play BG3" },
+            { rate: 5,  interval: 1000, beats: 10, text: "Getting Furniture" },
+            { rate: 9,  interval: 1000, beats: 10, text: "Trimming Pug Nails" },
+            { rate: 8,  interval: 1000, beats: 10, text: "Long Days on the Road" },
           ];
 
           var currentRateIndex = 0;
           let currentBeatCount = 0;
           var intervalID = 0;
+          const rate_conversion = [ 4000,   //  0
+                                     2000,   //  1
+                                     3000,   //  2
+                                     2000,   //  3
+                                     1750,   //  4
+                                     1500,   //  5
+                                     1250,   //  6
+                                     1000,   //  7
+                                      750,   //  8
+                                      500,   //  9
+                                      250 ]; // 10
 
           console.log("[updateRate] currentRateIndex: " + currentRateIndex )
           const updateRate = () => {
             console.log("[updateRate] entry")
-            document.getElementById('ecg-text').innerText = heartRates[currentRateIndex].rate;
+            document.getElementById('ecg-text').innerText = heartRates[currentRateIndex].text;
             // ecgLine((bang) => setInterval(() => bang(), 60000 / heartRates[currentRateIndex].rate));
-            ecgLine((bang) => setInterval(() => bang(), heartRates[currentRateIndex].interval));
+            ecgLine((bang) => setInterval(() => bang(), rate_conversion[heartRates[currentRateIndex].rate]));
             currentBeatCount++;
 
             console.log("[updateRate] currentBeatCount: " + currentBeatCount )
@@ -112,12 +126,12 @@
               currentRateIndex = (currentRateIndex + 1) % heartRates.length;
               console.log("[updateRate] currentRateIndex: " + currentRateIndex )
               clearInterval(intervalID);
-              intervalID = setInterval(updateRate, heartRates[currentRateIndex].interval);
+              intervalID = setInterval(updateRate, rate_conversion[heartRates[currentRateIndex].rate]);
             }
           };
           console.log("calling setInterval()...")
           // updateRate();
-          intervalID = setInterval(updateRate, heartRates[currentRateIndex].interval);
+          intervalID = setInterval(updateRate, rate_conversion[heartRates[currentRateIndex].rate]);
         })();
         </script>
       </div>
