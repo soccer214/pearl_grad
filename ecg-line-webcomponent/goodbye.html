@@ -1,105 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Welcome Pearl</title>
-<style>
-  body {
-    font-family: 'Great Vibes', cursive;
-    text-align: center;
-    padding-top: 100px;
-    background-color: black; /* Set background color to black */
-    color: white; /* Set text color to white */
-    position: relative; /* Set position relative for absolute positioning of hearts */
-  }
-  .text {
-    font-size: 5em; /* Increase font size */
-  }
-  .hidden {
-    display: none;
-  }
-  .heart {
-    position: absolute; /* Position hearts absolutely */
-    width: 50px; /* Set heart width */
-    height: auto; /* Maintain aspect ratio */
-    pointer-events: none; /* Prevent interaction with hearts */
-    z-index: -1; /* Ensure hearts are behind text */
-  }
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-</head>
-<body>
-  <div id="welcomeText" class="text">Goodbye Pearl!</div>
-  <div id="funText" class="text hidden">It's been fun!</div>
-  <div id="seeText" class="text hidden">See you!</div>
-  <div id="line4" class="text hidden">This is line 4</div>
-  <div id="line5" class="text hidden">This is line 5<div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-  $(document).ready(function(){
-    // Function to create a heart at a random position
-    function createHeart(color) {
-      // Create SVG element
-      var heart = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      heart.setAttribute("class", "heart");
-      heart.setAttribute("viewBox", "0 0 24 24");
-      
-      // Create path element for heart shape
-      var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      path.setAttribute("d", "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z");
-      path.setAttribute("fill", color); // Set heart color
-      
-      // Append path to SVG element
-      heart.appendChild(path);
-      
-      // Randomize position
-      var posX = Math.random() * window.innerWidth;
-      var posY = Math.random() * window.innerHeight;
-      
-      // Set position of heart
-      heart.style.left = posX + "px";
-      heart.style.top = posY + "px";
-      
-      // Append heart to body
-      document.body.appendChild(heart);
-    }
-    
-    // Create hearts in different colors
-    for (var i = 0; i < 100; i++) { // Create 100 hearts
-      var colors = ["red", "blue", "green", "orange"]; // Array of colors
-      var randomColor = colors[Math.floor(Math.random() * colors.length)]; // Random color from array
-      createHeart(randomColor);
-    }
-    
-    // Fade out hearts function
-    function fadeOutHearts() {
-      $(".heart").fadeOut(2000); // Fade out all hearts
-    }
-    
-    // Fade out 'Welcome Pearl'
-    $("#welcomeText").fadeOut(2000, function(){
-      // Fade in 'We thought it might be fun'
-      $("#funText").fadeIn(2000, function(){
-        // Fade in 'for you to see'
-        $("#seeText").fadeIn(2000, function(){
-          // Fade in 'through your college experience'
-          $("#line4").fadeIn(2000, function(){
-            // Fade in 'from a different perspective...'
-            $("#line5").fadeIn(2000, function(){
-              // After all text animations are done, fade out everything including hearts
-              fadeOutHearts(); // Call the function to fade out hearts
-              $("#funText, #seeText, #line4, #line5").fadeOut(2000, function() {
-                // After all animations are done, redirect to the second HTML file
-                // window.location.href = "index.html";
-              });
-            });
-          });
-        });
-      });
-    });
-  });
-</script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Art Display</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        #asciiDisplay {
+            font-size: 30px;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+            padding: 20px;
+        }
+
+        .message {
+            font-size: 40px;
+            margin-top: 50px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .firework {
+            position: absolute;
+            border-radius: 50%;
+            animation: explode 2s forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            100% {
+                width: 100px;
+                height: 100px;
+                opacity: 0;
+                transform: translate(-50%, -50%) rotate(720deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <pre id="asciiDisplay"></pre>
+
+    <script>
+        const asciiArt = [
+            `
+            |""-..._____
+            '-.____    _\`\`\`\`"""""'|
+                \\  \`\`\` \`\`"---... _ |
+                |              /   |
+                }--..______..-{    |
+                }}}}} _   _ {{{{{ /#\\
+                 }}}} 6   6 {{{{  ###
+            {{{{{    ^   }}}}}
+            {{{{{{\\  -=-  /}}}}}}
+             {{{{{{{;.___.;}}}}}}}
+              {{{{{{{)   (}}}}}}}'
+               \`""'"':   :'"'"'\`
+                     \`@\`       
+    `
+
+        ];
+
+        const display = document.getElementById('asciiDisplay');
+        let currentIndex = 0;
+
+        function showNextAscii() {
+            if (currentIndex < asciiArt.length) {
+                display.textContent = asciiArt[currentIndex];
+                currentIndex++;
+                setTimeout(showNextAscii, 5000); // Change drawing every 3 seconds
+            } else {
+                display.style.opacity = 0;
+                setTimeout(() => {
+                    const message1 = createMessage("We're excited for you!");
+                    setTimeout(() => {
+                        message1.style.opacity = 0;
+                        setTimeout(() => {
+                            const message2 = createMessage("and we hope to pull this song out again...");
+                            setTimeout(() => {
+                                message2.style.opacity = 0;
+                                setTimeout(() => {
+                                    const replayMessage = createMessage("in like 9 years...");
+                                    setTimeout(() => {
+                                        replayMessage.style.opacity = 0;
+                                        setTimeout(() => {
+                                            document.body.innerHTML = ''; // Clear the page after 3 seconds
+                                        }, 1000); // Wait for 1 second after the last message fades out
+                                    }, 3000); // Wait for 3 seconds after the replay message
+                                }, 3000); // Wait for 3 seconds after the second message fades out
+                            }, 3000); // Wait for 3 seconds after the second message
+                        }, 3000); // Wait for 3 seconds after the first message fades out
+                    }, 3000); // Wait for 3 seconds after the last ASCII drawing to be displayed
+                }, 3000); // Wait for 3 seconds after the last ASCII drawing to be displayed
+            }
+        }
+
+        function createMessage(text) {
+            const message = document.createElement('div');
+            message.classList.add('message');
+            message.textContent = text;
+            document.body.appendChild(message);
+            setTimeout(() => {
+                message.style.opacity = 0;
+            }, 3000); // Fade out after 3 seconds
+            return message;
+        }
+
+        function launchFireworks() {
+            setInterval(() => {
+                for (let i = 0; i < 3; i++) {
+                    const fireworks = document.createElement('div');
+                    fireworks.classList.add('firework');
+                    fireworks.style.top = Math.random() * 100 + '%';
+                    fireworks.style.left = Math.random() * 100 + '%';
+                    fireworks.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    const angle = Math.random() * 180 - 90; // Random angle between -90 and 90 degrees
+                    fireworks.style.transform = `rotate(${angle}deg)`;
+                    document.body.appendChild(fireworks);
+                }
+            }, 200); // Spawn 3 fireworks every 200ms
+        }
+
+        showNextAscii();
+        launchFireworks();
+    </script>
+
 </body>
+
 </html>
