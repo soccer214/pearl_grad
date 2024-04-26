@@ -8,27 +8,32 @@
     position: absolute;
     align-items: center;
     justify-content: center;
-    height: 120vh;  /* Ensure the container has enough height */
-    margin-top: 10px;  /* Adjust this value to suit your needs */
+    height: 140vh;  /* Ensure the container has enough height */
+    margin-top: 40px;  /* Adjust this value to suit your needs */
     }
+
     #ecg-title {
     color: blue;
     font-size: 48px;
-    margin-top: 0px;  /* Adjust this value to suit your needs */
+    height: 40vh;  /* Ensure the container has enough height */
+    margin-top: 20px;  /* Adjust this value to suit your needs */
     <!-- text-align: center; -->
     }
+
     #ecg-text {
     color: red;
-    font-size: 96px;
+    font-size: 120px;
     margin-top: 300px;  /* Adjust this value to suit your needs */
+    height: 140px;  /* Ensure the container has enough height */
     <!-- text-align: center; -->
     }
+
     #ecg-waveform {
     color: yellow;
-    font-size: 48px;
-    margin-top: 200px;  /* Adjust this value to suit your needs */
+    margin-top: 400px;  /* Adjust this value to suit your needs */
     <!-- text-align: center; -->
     }
+
     #ecg-line {
     color: red;
     font-size: 48px;
@@ -79,30 +84,30 @@
           //   Long Days on the Road (8)
 
           const heartRates = [
-            { rate:  40, interval: 1000,  beats:  4, text: "Life Sciences Tests"                      },
-            { rate: 250,  interval: 1000, beats: 25, text: "OCHEM 352"                            },
-            { rate: 250,  interval: 1000, beats: 25, text: "OCHEM 351"                            },
-            { rate: 250,  interval: 1000, beats: 25, text: "Dr Wilson"                                },
+            { rate:  40,  interval: 1000, beats:  4, text: "Life Sciences Tests"                      },
             { rate: 200,  interval: 1000, beats: 20, text: "MMBIO 364 (Bacterial Pathogenesis)" },
             { rate: 250,  interval: 1000, beats: 25, text: "Getting Married"                          },
-            { rate: 200,  interval: 1000, beats: 20, text: "MMBIO 463 (Immunology)"              },
             { rate: 200,  interval: 1000, beats: 20, text: "CHEM 105"                               },
             { rate: 220,  interval: 1000, beats: 22, text: "CELL 210 (Human Anatomy)"                 },
             { rate: 150,  interval: 1000, beats: 15, text: "History Class"                            },
+            { rate: 200,  interval: 1000, beats: 20, text: "MMBIO 463 (Immunology)"              },
+            { rate: 220,  interval: 1000, beats: 22, text: "PHSCS 107"                              },
             { rate: 100,  interval: 1000, beats: 10, text: "Steak Express"                            },
+            { rate: 220,  interval: 1000, beats: 22, text: "Change: ResearchSchool->Med"      },
             { rate: 300,  interval: 1000, beats: 30, text: "Tutoring Jared"                           },
             { rate: 100,  interval: 1000, beats: 10, text: "Student Development"                      },
+            { rate: 250,  interval: 1000, beats: 25, text: "OCHEM 351"                            },
             { rate: 80,   interval: 1000, beats:  8, text: "Getting a Post-graduation Job"            },
-            { rate: 150,  interval: 1000, beats: 15, text: "Surprise Parties"                         },
-            { rate: 250,  interval: 1000, beats: 25, text: "MCAT Prep"                                },
-            { rate: 220,  interval: 1000, beats: 22, text: "PHSCS 107"                              },
             { rate: 220,  interval: 1000, beats: 22, text: "PHSCS 106"                          },
+            { rate: 150,  interval: 1000, beats: 15, text: "Surprise Parties"                         },
+            { rate: 250,  interval: 1000, beats: 25, text: "OCHEM 352"                            },
             { rate: 200,  interval: 1000, beats: 20, text: "PHSCS 105"                              },
             { rate: 120,  interval: 1000, beats: 12, text: "PHSCS 108"                              },
-            { rate: 220,  interval: 1000, beats: 22, text: "Change: ResearchSchool->Med"      },
+            { rate: 250,  interval: 1000, beats: 25, text: "Dr Wilson"                                },
             { rate: 220,  interval: 1000, beats: 22, text: "Living with Jared"                        },
             { rate: 300,  interval: 1000, beats: 30, text: "Christmas Program"                        },
             { rate: 100,  interval: 1000, beats: 10, text: "Styx Cover/Parody Band"                   },
+            { rate: 250,  interval: 1000, beats: 25, text: "MCAT Prep"                                },
             { rate: 40,   interval: 1000, beats:  4, text: "Enjoying Every Spring"                    },
             { rate: 200,  interval: 1000, beats: 20, text: "Learning to Play BG100"                   },
             { rate: 150,  interval: 1000, beats: 15, text: "Getting Furniture"                        },
@@ -111,30 +116,21 @@
             { rate: 1,    interval: 1000, beats: 1,  text: "Long Days on the Road"                    },
           ];
 
-          const rate_to_beat_conversion = [
-                 0,   //  0     beats: 0
-                 2,   //  1           2
-                 5,   //  2           5
-                 8,   //  3          8
-                12,   //  4         12
-                15,   //  5          15
-                20,   //  6          20
-                23,   //  7          23
-                27,   //  8         27
-                30,   //  9         30
-                33, // 10         33
-          ];
-          const rate_conversion = [ 0,   //  0     beats: 0
-                                    40,   //  1           2
-                                    80,   //  2           4
-                                    100,   //  3
-                                    120,   //  4
-                                    150,   //  5          15
-                                    175,   //  6          20
-                                    200,   //  7          23
-                                     220,   //  8         27
-                                     250,   //  9         30
-                                     300 ]; // 10         33
+          // Jared's rates (1-10) -> heartrate
+             //  0:    0
+             //  1:   40
+             //  2:   80
+             //  3:  100
+             //  4:  120
+             //  5:  150
+             //  6:  175
+             //  7:  200
+             //  8:  220
+             //  9:  250
+             // 10:  300
+
+        // HeartRate -> # of beats = 1/10 * heartrate (i.e. Heartrate of 80 =
+        // beats of (1/10 * heartrate(80)) = 8)
 
     <!-- display: flex; -->
     <!-- flex-direction: column; -->
@@ -143,6 +139,13 @@
           var currentRateIndex = 0;
           let currentBeatCount = 0;
 
+          //-----------------------------------------------------------------------
+          // Function: updateRate
+          //
+          // Comments:
+          //    Function used to determine if we need to update to the next
+          //    index in our data table.
+          //-----------------------------------------------------------------------
           const updateRate = () => {
             document.getElementById('ecg-text').innerText = heartRates[currentRateIndex].text;
 
