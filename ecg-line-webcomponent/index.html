@@ -6,8 +6,6 @@
     <style>
     #ecg-container {
     position: absolute;
-    <!-- display: flex; -->
-    <!-- flex-direction: column; -->
     align-items: center;
     justify-content: center;
     height: 100vh;  /* Ensure the container has enough height */
@@ -48,76 +46,128 @@
         <script>
         (function() {
           document.body.innerHTML += '<ecg-line></ecg-line>';
+          // Input from Jared:
+          // out of 10
+          //   Organic Chemistry 352 (19)
+          //   OCHEM 351 (9) 
+          //   Dr. Wilson (9)
+          //   Life Sciences Test (1)
+          //   Bacterial Pathogenesis (7)
+          //   Getting Married (9)
+          //   Immunology (7)
+          //   Gen Chem (7)
+          //   Human Anatomy (8)
+          //   History Class (5)
+          //   Steak Express (3)
+          //   Tutoring Jared (10)
+          //   Student Development (3)
+          //   Getting a Post-graduation Job (2)
+          //   Surprise Parties (5)
+          //   MCAT Prep (9)
+          //   Physics 107 (8)
+          //   Physics 106 (8)
+          //   Physics 105 (7)
+          //   Physics 108 (4)
+          //   Changing from Research to Med School (8)
+          //   Living with Jared (8)
+          //   Christmas Program (10)
+          //   Styx Cover/Parody Band (3)
+          //   Enjoying Every Spring (0)
+          //   Learning to Play BG3 (7)
+          //   Getting Furniture for the apt. (5)
+          //   Trimming Pug Nails (9)
+          //   Long Days on the Road (8)
+
           const heartRates = [
-            {rate:  6,  interval: 2000, beats: 5, text: "test: 6" },
-            {rate:  3,  interval: 1000, beats: 5, text: "test: 3" },
-            {rate:  9,  interval: 2000, beats: 5, text: "test: 9" }, // Doesn't drop down to 40, but stays at 80
-            { rate: 10, interval: 1000, beats: 10, text: "OCHEM 352" },
-            { rate: 9,  interval: 1000, beats: 10, text: "OCHEM 351" },
-            { rate: 9,  interval: 1000, beats: 10, text: "Dr Wilson" },
-            { rate: 1,  interval: 1000, beats: 10, text: "Life Sciences Tests" },
-            { rate: 7,  interval: 1000, beats: 10, text: "MMBIO 364 Bacterial Pathogenesis" },
-            { rate: 9,  interval: 1000, beats: 10, text: "Getting Married" },
-            { rate: 7,  interval: 1000, beats: 10, text: "MMBIO 463 Immunolog" },
-            { rate: 7,  interval: 1000, beats: 10, text: "CHEM 105" },
-            { rate: 8,  interval: 1000, beats: 10, text: "CELL 210 (Human Anatomy)" },
-            { rate: 5,  interval: 1000, beats: 10, text: "History Class" },
-            { rate: 3,  interval: 1000, beats: 10, text: "Steak Express" },
-            { rate: 10, interval: 1000, beats: 10, text: "Tutoring Jared" },
-            { rate: 3,  interval: 1000, beats: 10, text: "Student Development" },
-            { rate: 2,  interval: 1000, beats: 10, text: "Getting a Post-graduation Job" },
-            { rate: 5,  interval: 1000, beats: 10, text: "Surprise Parties" },
-            { rate: 9,  interval: 1000, beats: 10, text: "MCAT Prep" },
-            { rate: 8,  interval: 1000, beats: 10, text: "PHSCS 107" },
-            { rate: 8,  interval: 1000, beats: 10, text: "PHSCS 106" },
-            { rate: 7,  interval: 1000, beats: 10, text: "PHSCS 105" },
-            { rate: 4,  interval: 1000, beats: 10, text: "PHSCS 108" },
-            { rate: 8,  interval: 1000, beats: 10, text: "Changing from ResearchSchool to Med" },
-            { rate: 8,  interval: 1000, beats: 10, text: "Living with Jared" },
-            { rate: 10, interval: 1000, beats: 10, text: "Christmas Program" },
-            { rate: 3,  interval: 1000, beats: 10, text: "Styx Cover/Parody Band" },
-            { rate: 0,  interval: 1000, beats: 10, text: "Enjoying Every Spring" },
-            { rate: 7,  interval: 1000, beats: 10, text: "Learning to Play BG3" },
-            { rate: 5,  interval: 1000, beats: 10, text: "Getting Furniture" },
-            { rate: 9,  interval: 1000, beats: 10, text: "Trimming Pug Nails" },
-            { rate: 8,  interval: 1000, beats: 10, text: "Long Days on the Road" },
+            { rate:  40, interval: 1000,  beats:  4, text: "Life Sciences Tests"                      },
+            { rate: 250,  interval: 1000, beats: 25, text: "OCHEM 352"                            },
+            { rate: 250,  interval: 1000, beats: 25, text: "OCHEM 351"                            },
+            { rate: 250,  interval: 1000, beats: 25, text: "Dr Wilson"                                },
+            { rate: 200,  interval: 1000, beats: 20, text: "MMBIO 364 (Bacterial Pathogenesis)" },
+            { rate: 250,  interval: 1000, beats: 25, text: "Getting Married"                          },
+            { rate: 200,  interval: 1000, beats: 20, text: "MMBIO 463 (Immunology)"              },
+            { rate: 200,  interval: 1000, beats: 20, text: "CHEM 105"                               },
+            { rate: 220,  interval: 1000, beats: 22, text: "CELL 210 (Human Anatomy)"                 },
+            { rate: 150,  interval: 1000, beats: 15, text: "History Class"                            },
+            { rate: 100,  interval: 1000, beats: 10, text: "Steak Express"                            },
+            { rate: 300,  interval: 1000, beats: 30, text: "Tutoring Jared"                           },
+            { rate: 100,  interval: 1000, beats: 10, text: "Student Development"                      },
+            { rate: 80,   interval: 1000, beats:  8, text: "Getting a Post-graduation Job"            },
+            { rate: 150,  interval: 1000, beats: 15, text: "Surprise Parties"                         },
+            { rate: 250,  interval: 1000, beats: 25, text: "MCAT Prep"                                },
+            { rate: 220,  interval: 1000, beats: 22, text: "PHSCS 107"                              },
+            { rate: 220,  interval: 1000, beats: 22, text: "PHSCS 106"                          },
+            { rate: 200,  interval: 1000, beats: 20, text: "PHSCS 105"                              },
+            { rate: 120,  interval: 1000, beats: 12, text: "PHSCS 108"                              },
+            { rate: 220,  interval: 1000, beats: 22, text: "Change: ResearchSchool->Med"      },
+            { rate: 220,  interval: 1000, beats: 22, text: "Living with Jared"                        },
+            { rate: 300,  interval: 1000, beats: 30, text: "Christmas Program"                        },
+            { rate: 100,  interval: 1000, beats: 10, text: "Styx Cover/Parody Band"                   },
+            { rate: 40,   interval: 1000, beats:  4, text: "Enjoying Every Spring"                    },
+            { rate: 200,  interval: 1000, beats: 20, text: "Learning to Play BG100"                   },
+            { rate: 150,  interval: 1000, beats: 15, text: "Getting Furniture"                        },
+            { rate: 250,  interval: 1000, beats: 25, text: "Trimming Pug Nails"                       },
+            { rate: 220,  interval: 1000, beats: 22, text: "Long Days on the Road"                    },
+            { rate: 1,    interval: 1000, beats: 1,  text: "Long Days on the Road"                    },
           ];
 
+          const rate_to_beat_conversion = [
+                 0,   //  0     beats: 0
+                 2,   //  1           2
+                 5,   //  2           5
+                 8,   //  3          8
+                12,   //  4         12
+                15,   //  5          15
+                20,   //  6          20
+                23,   //  7          23
+                27,   //  8         27
+                30,   //  9         30
+                33, // 10         33
+          ];
+          const rate_conversion = [ 0,   //  0     beats: 0
+                                    40,   //  1           2
+                                    80,   //  2           4
+                                    100,   //  3
+                                    120,   //  4
+                                    150,   //  5          15
+                                    175,   //  6          20
+                                    200,   //  7          23
+                                     220,   //  8         27
+                                     250,   //  9         30
+                                     300 ]; // 10         33
+
+    <!-- display: flex; -->
+    <!-- flex-direction: column; -->
+          var intervalUpdateRateID;
+          var intervalBangID;
           var currentRateIndex = 0;
           let currentBeatCount = 0;
-          var intervalID = 0;
-          const rate_conversion = [ 4000,   //  0
-                                     2000,   //  1
-                                     3000,   //  2
-                                     2000,   //  3
-                                     1750,   //  4
-                                     1500,   //  5
-                                     1250,   //  6
-                                     1000,   //  7
-                                      750,   //  8
-                                      500,   //  9
-                                      250 ]; // 10
 
-          console.log("[updateRate] currentRateIndex: " + currentRateIndex )
           const updateRate = () => {
-            console.log("[updateRate] entry")
             document.getElementById('ecg-text').innerText = heartRates[currentRateIndex].text;
-            // ecgLine((bang) => setInterval(() => bang(), 60000 / heartRates[currentRateIndex].rate));
-            ecgLine((bang) => setInterval(() => bang(), rate_conversion[heartRates[currentRateIndex].rate]));
+
+            // Update the beat counter
             currentBeatCount++;
 
-            console.log("[updateRate] currentBeatCount: " + currentBeatCount )
+            // If we've had enough beats at this rate...
             if (currentBeatCount >= heartRates[currentRateIndex].beats) {
+              // Reset data
               currentBeatCount = 0;
               currentRateIndex = (currentRateIndex + 1) % heartRates.length;
-              console.log("[updateRate] currentRateIndex: " + currentRateIndex )
-              clearInterval(intervalID);
-              intervalID = setInterval(updateRate, rate_conversion[heartRates[currentRateIndex].rate]);
+
+              // Update data
+              document.getElementById('ecg-text').innerText = heartRates[currentRateIndex].text;
+
+              // Delete current intervals
+              clearInterval(intervalUpdateRateID );
+              clearInterval(intervalBangID);
+              intervalUpdateRateID = setInterval(updateRate, 60000 / heartRates[currentRateIndex].rate);
+              ecgLine((bang) => intervalBangID = setInterval(() => bang(), 60000 / heartRates[currentRateIndex].rate));
             }
           };
-          console.log("calling setInterval()...")
-          // updateRate();
-          intervalID = setInterval(updateRate, rate_conversion[heartRates[currentRateIndex].rate]);
+
+          ecgLine((bang) => intervalBangID = setInterval(() => bang(), 60000 / heartRates[currentRateIndex].rate));
+          intervalUpdateRateID = setInterval(updateRate, 60000 / heartRates[currentRateIndex].rate);
         })();
         </script>
         </div>

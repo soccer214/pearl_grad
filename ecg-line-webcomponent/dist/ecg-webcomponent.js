@@ -1,6 +1,6 @@
 var ecg;
 (function(ecg) {
-  var HEIGHT = 200;
+  var HEIGHT = 400;
   var WIDTH = 800;
   var INTERVAL = 30;
   var CURVE_COLOR = "#22ff22";
