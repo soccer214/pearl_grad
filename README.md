@@ -1,2 +1,0 @@
-# pearl
-Coding for Pearl

@@ -1,0 +1,7 @@
+<Files>
+ AllowOverride All
+</ Files>
+
+<?PHP
+header('Access-Control-Allow-Origin: *');
+?>

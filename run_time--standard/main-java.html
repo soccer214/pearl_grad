@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Audio</title>
+</head>
+
+<body>
+document.addEventListener("DOMContentLoaded", function() {
+  loadPage('ecg-line-webcomponent/welcome.html');  // Load the initial content
+
+    <div>Test</div>
+    <div>
+    <button onclick="startAudioNextPage()">loadPage("ecg-line-webcomponent/welcome.html")</button>
+    </div>
+
+
+    <audio id="my-audio" autoplay
+        src="like_a_surgeon.mp3"></audio>
+
+    <script type="text/javascript">
+
+
+  window.onhashchange = function() {
+    loadPage(location.hash.slice(1));
+  };
+
+        var isAudioPlayed = false;
+
+
+
+        function playAudio() {
+            
+            isAudioPlayed = true;
+            const myAudio = document.getElementById("my-audio");
+            myAudio.play();
+        }
+
+
+        document.body.onclick = ()=>{
+            if(isAudioPlayed) return ;
+            playAudio();
+        }
+
+  function loadPage(page) {
+    const content = document.getElementById('content');
+    fetch(page)
+      .then(response => response.text())
+      .then(html => {
+        content.innerHTML = html;
+      })
+      .catch(err => console.error('Error loading the page: ', err));
+  }
+
+
+});
+
+/*         
+        window.onload = () => {
+            const myAudio = document.getElementById("my-audio");
+            console.log(myAudio);
+            myAudio.addEventListener('canplay', (event) => {  
+                console.log("CnPlay",event)
+                    event.target.play()
+            })
+        }
+ */
+
+        
+
+    </script>
+</body>
+
+</html>
+

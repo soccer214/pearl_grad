@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Next Page</title>
+<script>
+window.onload = function() {
+    // Check if audio was started in the previous page
+    if (sessionStorage.getItem('audioStarted') === 'true') {
+        var audio = document.getElementById('backgroundMusic');
+        audio.play();
+<button onclick="startAudioNextPage()">Started Audio</button>
+    }
+};
+</script>
+</head>
+<body>
+<audio id="backgroundMusic" src="lik3_a_surgeon.mp3" loop></audio>
+<h1>Welcome to the Next Page!</h1>
+</body>
+</html>

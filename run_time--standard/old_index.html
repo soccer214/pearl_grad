@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My SPA Web App</title>
+    <script src="app.js"></script>
+    <script>
+    // Start playing the audio
+    function start_audio() {
+      var audio = document.getElementById('background-music');
+      audio.play();
+    };
+
+    var isAudioPlayed = false;
+
+    function play_audio() {
+
+      isAudioPlayed = true;
+      const myAudio = document.getElementById("background-music");
+      myAudio.play();
+    }
+    </script>
+    <audio id="background-music" src="like_a_surgeon.mp3" autoplay></audio>
+  </head>
+  <body>
+    <div id="content"></div>
+  </body>
+</html>

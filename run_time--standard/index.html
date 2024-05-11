@@ -1,0 +1,29 @@
+<!-- index.html -->
+<h2>he Index Page</h2>
+<html>
+<head>
+    <?PHP
+      header('Access-Control-Allow-Origin: *');
+    ?>
+    <script>
+      <!-- let cors = require("cors"); -->
+      <!-- app.use(cors()); -->
+    </script>
+    <title>My Web App</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+    <div id="content"></div>
+    <audio id="background-music" src="../like_a_surgeon.mp3" autoplay></audio>
+
+
+    <!--The javascript file will call the next page -->
+    <script src="app.js"></script>
+    <script>
+    audio_id = document.getElementById('background-music');
+    </script>
+</body>
+</html>

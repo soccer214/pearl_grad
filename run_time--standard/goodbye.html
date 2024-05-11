@@ -1,0 +1,144 @@
+<div>
+    <pre id="asciiDisplay"></pre>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        #asciiDisplay {
+            font-size: 30px;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+            padding: 20px;
+        }
+
+        .message {
+            font-size: 40px;
+            margin-top: 50px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .firework {
+            position: absolute;
+            border-radius: 50%;
+            animation: explode 2s forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            100% {
+                width: 100px;
+                height: 100px;
+                opacity: 0;
+                transform: translate(-50%, -50%) rotate(720deg);
+            }
+        }
+    </style>
+
+    <script>
+        const asciiArt = [
+            `
+            |""-..._____
+            '-.____    _\`\`\`\`"""""'|
+                \\  \`\`\` \`\`"---... _ |
+                |              /   |
+                }--..______..-{    |
+                }}}}} _   _ {{{{{ /#\\
+                 }}}} 6   6 {{{{  ###
+            {{{{{    ^   }}}}}
+            {{{{{{\\  -=-  /}}}}}}
+             {{{{{{{;.___.;}}}}}}}
+              {{{{{{{)   (}}}}}}}'
+               \`""'"':   :'"'"'\`
+                     \`@\`       
+    `
+
+        ];
+
+        const display = document.getElementById('asciiDisplay');
+        let currentIndex = 0;
+
+        function showNextAscii() {
+            if (currentIndex < asciiArt.length) {
+                display.textContent = asciiArt[currentIndex];
+                currentIndex++;
+                setTimeout(showNextAscii, 5000); // Change drawing every 3 seconds
+            } else {
+                display.style.opacity = 0;
+            setTimeout(() => {
+              setTimeout(() => {
+                const message1 = createMessage("We're excited for you!");
+                setTimeout(() => {
+                  message1.style.opacity = 0;
+                  setTimeout(() => {
+                    const message2 = createMessage("and we hope to pull this song out again...");
+                    setTimeout(() => {
+                      message2.style.opacity = 0;
+                      setTimeout(() => {
+                        const replayMessage = createMessage("in like 9 years...");
+                        setTimeout(() => {
+                          replayMessage.style.opacity = 0;
+                          setTimeout(() => {
+                            // document.body.innerHTML = ''; // Clear the page after 3 seconds
+                          }, 1000); // Wait for 1 second after the last message fades out
+                        }, 3000); // Wait for 3 seconds after the replay message
+                      }, 3000); // Wait for 3 seconds after the second message fades out
+                    }, 3000); // Wait for 3 seconds after the second message
+                  }, 3000); // Wait for 3 seconds after the first message fades out
+                }, 3000); // Wait for 3 seconds after the last ASCII drawing to be displayed
+              }, 3000); // Wait for 3 seconds after the last ASCII drawing to be displayed
+            }, 3000); // Pause at the end
+            }
+        }
+
+        function createMessage(text) {
+            const message = document.createElement('div');
+            message.classList.add('message');
+            message.textContent = text;
+            document.body.appendChild(message);
+            setTimeout(() => {
+                message.style.opacity = 0;
+            }, 3000); // Fade out after 3 seconds
+            return message;
+        }
+
+        function launchFireworks() {
+            setInterval(() => {
+                for (let i = 0; i < 3; i++) {
+                    const fireworks = document.createElement('div');
+                    fireworks.classList.add('firework');
+                    fireworks.style.top = Math.random() * 100 + '%';
+                    fireworks.style.left = Math.random() * 100 + '%';
+                    fireworks.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    const angle = Math.random() * 180 - 90; // Random angle between -90 and 90 degrees
+                    fireworks.style.transform = `rotate(${angle}deg)`;
+                    document.body.appendChild(fireworks);
+                }
+            }, 200); // Spawn 3 fireworks every 200ms
+        }
+
+        showNextAscii();
+        launchFireworks();
+        setTimeout(60000); // Wait for 1 second after the last message fades out
+    </script>
+
+
+</div>
+

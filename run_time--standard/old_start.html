@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Start Page</title>
+    <script>
+
+function navigate() {
+  // Navigate to next.html
+  var audio = document.getElementById('backgroundMusic');
+  audio.play();
+
+  // Store that the audio has started
+  sessionStorage.setItem('audioStarted', 'true');
+  window.location.href = 'page1.html';
+}
+
+function startAudio() {
+  // Start playing the audio
+  var audio = document.getElementById('backgroundMusic');
+  audio.play();
+
+  // Store that the audio has started
+  sessionStorage.setItem('audioStarted', 'true');
+}
+    </script>
+  </head>
+  <body>
+    <audio id="backgroundMusic" src="like_a_surgeon.mp3" loop></audio>
+    <button onclick="startAudio()">Start Audio</button>
+    <button onclick="navigate()">Go to Next Page</button>
+  </body>
+</html>
+
+
+
+
+<!-- <!DOCTYPE html> -->
+<!-- <html lang="en"> -->
+<!-- <head> -->
+<!-- <meta charset="UTF-8"> -->
+<!-- <title>Start Page</title> -->
+<!-- <script> -->
+<!-- function startPearl() { -->
+<!--     // Start playing the audio -->
+<!--     // var audio = document.getElementById('backgroundMusic'); -->
+<!--     // audio.play(); -->
+<!--     // -->
+<!--     // // Store that the audio has started -->
+<!--     // sessionStorage.setItem('audioStarted', 'true'); -->
+<!---->
+<!--     // Navigate to next.html -->
+<!--     window.location.href = 'ecg-line-webcomponent/welcome.html'; -->
+<!-- } -->
+<!-- function startAudio() { -->
+<!--     // Start playing the audio -->
+<!--     // var audio = document.getElementById('backgroundMusic'); -->
+<!--     // audio.play(); -->
+<!--     // sessionStorage.setItem('audioStarted', 'true'); -->
+<!-- //   <audio controls> -->
+<!-- //   <source src="like_a_surgeon.mp3" type="audio/mpeg"> -->
+<!-- //   Your browser does not support the audio tag. -->
+<!-- // </audio> -->
+<!-- //     audio.play(); -->
+<!---->
+<!-- // Start playing the audio -->
+<!-- var audio = document.getElementById('backgroundMusic'); -->
+<!-- audio.play(); -->
+<!--     sessionStorage.setItem('audioStarted', 'true'); -->
+<!---->
+<!--     // Store that the audio has started -->
+<!--     // window.location.href = 'like_a_surgeon.mp3'; -->
+<!---->
+<!--     startPearl() -->
+<!-- } -->
+<!-- </script> -->
+<!-- </head> -->
+<!-- <body> -->
+<!-- <audio id="backgroundMusic" src="like_a_surgeon.mp3" loop></audio> -->
+<!-- <button onclick="startAudio()">Go to Next Page</button> -->
+<!-- </body> -->
+<!-- </html> -->
+
+
+
+<!-- <!DOCTYPE html> -->
+<!-- <html lang="en"> -->
+<!-- <head> -->
+<!-- <meta charset="UTF-8"> -->
+<!-- <title>Start Page</title> -->
+<!-- <script> -->
+<!--   <!-- window.location.href = 'like_a_surgeon.mp3'; // Navigate after audio starts --> -->
+<!--   function startAudioAndNavigate() { -->
+<!--     // Start playing the audio -->
+<!--     var audio = document.getElementById('backgroundMusic'); -->
+<!--     audio.play(); -->
+<!---->
+<!--     // Store that the audio has started -->
+<!--     sessionStorage.setItem('audioStarted', 'true'); -->
+<!---->
+<!--     // Navigate to next.html -->
+<!--     window.location.href = 'next.html'; -->
+<!-- } -->
+<!---->
+<!-- // window.onload = function() { -->
+<!-- //     var audio = document.getElementById('backgroundMusic'); -->
+<!-- // -->
+<!-- //     // Try to play the audio and navigate automatically -->
+<!-- //     var promise = audio.play(); -->
+<!-- //     if (promise !== undefined) { -->
+<!-- //         promise.then(_ => { -->
+<!-- //             // Autoplay started! -->
+<!-- //             navigateToNextPage(); -->
+<!-- //         }).catch(error => { -->
+<!-- //             // Autoplay was prevented. -->
+<!-- //             // Show a UI element to let the user manually start playback. -->
+<!-- //             // window.location.href = 'like_a_surgeon.mp3'; -->
+<!-- //             // window.location.href = 'like_a_surgeon.mp3'; // Navigate after audio starts -->
+<!-- //         }); -->
+<!-- //     } -->
+<!-- // }; -->
+<!---->
+<!-- function navigateToNextPage() { -->
+<!--     // window.location.href = 'like_a_surgeon.mp3'; // Navigate after audio starts -->
+<!---->
+<!--     sessionStorage.setItem('audioStarted', 'true'); -->
+<!--     window.location.href = 'ecg-line-webcomponent/next.html'; // Navigate after audio starts -->
+<!-- } -->
+<!-- </script> -->
+<!-- </head> -->
+<!-- <body> -->
+<!-- <audio id="backgroundMusic" src="like_a_surgeon.mp3" autoplay></audio> -->
+<!-- <audio id="noplaybackgroundMusic" src="like_a_surgeon.mp3" autoplay></audio> -->
+<!-- <!-- Button removed --> -->
+<!-- </body> -->
+<!-- </html> -->
+<!---->

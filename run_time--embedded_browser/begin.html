@@ -1,0 +1,36 @@
+<div>
+  <h1>Begin (set's up the button, and switches to the welcome page)</h1>
+    <?PHP
+      header('Access-Control-Allow-Origin: *');
+    ?>
+    <h1>[begin.html] Click on the Start button to begin.</h1>
+    <!-- <button onclick="loadPage('goodbye.html')">Go to Goodbye Page</button> -->
+    <script>
+  function start_audio_and_jump(page) {
+        // audio_id = document.getElementById('background-music');
+        audio_id.play();
+
+        window.loadPage('waveform.html');
+        // window.loadPage('welcome.html');
+        // setTimeout(function() {
+        //     window.loadPage('waveform.html');
+        // }, 5000); // Change pages after 5 seconds
+        // window.loadPage('welcome.html');
+  }
+    </script>
+    <!-- start_audio(); -->
+    <!-- <button onclick="loadPage('welcome.html')">Start</button> -->
+    <!-- <audio id="background-music" src="like_a_surgeon.mp3" loop autoplay></audio> -->
+    <button onclick="start_audio_and_jump()">Start</button>
+    <div id="content"></div>
+    <audio id="background-music" src="../like_a_surgeon.mp3" autoplay></audio>
+
+
+    <!--The javascript file will call the next page -->
+    <script src="app.js"></script>
+    <script>
+    audio_id = document.getElementById('background-music');
+    </script>
+
+</div>
+

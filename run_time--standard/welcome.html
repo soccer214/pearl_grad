@@ -1,0 +1,182 @@
+<!-- welcome.html -->
+<div>
+  <h1>Welcome Page<h1>
+
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+  div {
+  <!-- display: table; -->
+  width: 250px;
+  <!-- height: 500px; -->
+  text-align: center;
+  border: 1px solid red;
+  }
+
+  span {
+  display: table-cell;
+  vertical-align: middle;
+
+  }
+  body {
+  padding-top: 100px;
+  background-color: black;
+  color: white;
+  <!-- font-family: 'Courier New', Courier, monospace; -->
+  font-family: 'Great Vibes';
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  position: absolute; /* Set position relative for absolute positioning of hearts */
+  }
+
+  .text {
+  font-size: 5em; /* Increase font size */
+  }
+  .hidden {
+  display: none;
+  }
+  .heart {
+  position: absolute; /* Position hearts absolutely */
+  width: 50px; /* Set heart width */
+  height: auto; /* Maintain aspect ratio */
+  pointer-events: none; /* Prevent interaction with hearts */
+  z-index: -1; /* Ensure hearts are behind text */
+  }
+  </style>
+
+  <div id="welcomeText" class="text"><span> Welcome Pearl </span> </div>
+  <div id="funText"     class="text hidden">We thought it might be fun</div>
+  <div id="seeText"     class="text hidden">for you to walk</div>
+  <div id="line4"       class="text hidden">through your college experience</div>
+  <div id="line5"       class="text hidden">from a different perspective...</div>
+
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+        const display = document.getElementById('asciiDisplay');
+        let currentIndex = 0;
+  <!-- $(document).ready(function(){ -->
+  // Function to create a heart at a random position
+  function createHeart(color) {
+    // Create SVG element
+    var heart = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    heart.setAttribute("class", "heart");
+    heart.setAttribute("viewBox", "0 0 24 24");
+
+    // Create path element for heart shape
+    var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z");
+    path.setAttribute("fill", color); // Set heart color
+
+    // Append path to SVG element
+    heart.appendChild(path);
+
+    // Randomize position
+    var posX = Math.random() * window.innerWidth;
+    var posY = Math.random() * window.innerHeight;
+
+    // Set position of heart
+    heart.style.left = posX + "px";
+    heart.style.top = posY + "px";
+
+    // Append heart to body
+    document.body.appendChild(heart);
+  }
+
+  // Create hearts in different colors
+  function create_random_hearts() {
+
+    for (var i = 0; i < 100; i++) { // Create 100 hearts
+      var colors = ["red", "blue", "green", "orange"]; // Array of colors
+      var randomColor = colors[Math.floor(Math.random() * colors.length)]; // Random color from array
+      createHeart(randomColor);
+    }
+  };
+
+        function createMessage(text) {
+          const message = document.createElement('div');
+          message.classList.add('message');
+          message.textContent = text;
+          document.body.appendChild(message);
+          setTimeout(() => {
+            message.style.opacity = 0;
+          }, 3000); // Fade out after 3 seconds
+          return message;
+        }
+
+
+  function show_next_ascii() {
+      // display.style.opacity = 0;
+      setTimeout(() => {
+        setTimeout(() => {
+          const message1 = createMessage("We're excited for you!");
+          setTimeout(() => {
+            message1.style.opacity = 0;
+            setTimeout(() => {
+              const message2 = createMessage("and we hope to pull this song out again...");
+              setTimeout(() => {
+                message2.style.opacity = 0;
+                setTimeout(() => {
+                  const replayMessage = createMessage("in like 9 years...");
+                  setTimeout(() => {
+                    replayMessage.style.opacity = 0;
+                    // setTimeout(() => {
+                    //   document.body.innerHTML = ''; // Clear the page after 3 seconds
+                    // }, 1000); // Wait for 1 second after the last message fades out
+                  }, 3000); // Wait for 3 seconds after the replay message
+                }, 3000); // Wait for 3 seconds after the second message fades out
+              }, 3000); // Wait for 3 seconds after the second message
+            }, 3000); // Wait for 3 seconds after the first message fades out
+          }, 3000); // Wait for 3 seconds after the last ASCII drawing to be displayed
+        }, 3000); // Wait for 3 seconds after the last ASCII drawing to be displayed
+      }, 10000); // Pause at the end
+    }
+  // }
+
+  // Fade out hearts function
+  function fadeOutHearts() {
+    $(".heart").fadeOut(2000); // Fade out all hearts
+  };
+
+  function display_text_lines() {
+
+    // Fade out 'Welcome Pearl'
+    $("#welcomeText").fadeOut(2000, function(){
+      // Fade in 'We thought it might be fun'
+      $("#funText").fadeIn(2000, function(){
+        // Fade in 'for you to see'
+        $("#seeText").fadeIn(2000, function(){
+          // Fade in 'through your college experience'
+          $("#line4").fadeIn(2000, function(){
+            // Fade in 'from a different perspective...'
+            $("#line5").fadeIn(2000, function(){
+              // After all text animations are done, fade out everything including hearts
+              fadeOutHearts(); // Call the function to fade out hearts
+              $("#funText, #seeText, #line4, #line5").fadeOut(2000, function() {
+                // After all animations are done, redirect to the second HTML file
+                // window.location.href = "welcome.html";
+              });
+            });
+          });
+        });
+      });
+    });
+  };
+  // });
+
+  create_random_hearts();
+  // display_text_lines();
+  show_next_ascii();
+
+
+  // You can adjust the timing or trigger this based on some other condition
+  setTimeout(function() {
+    window.loadPage('waveform.html');
+  }, 30000); // Change pages after 5 seconds
+  // var audio = document.getElementById('background-music');
+  // audio.play();
+  </script>
+</div>
+

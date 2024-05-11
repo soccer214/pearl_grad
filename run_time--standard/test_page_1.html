@@ -1,0 +1,21 @@
+<div>
+    <h1>Page 2 (index - begin - welcome - waveform - goodbye).</h1>
+    <!-- <button onclick="loadPage('goodbye.html')">Go to Goodbye Page</button> -->
+    <script>
+  function start_audio_and_jump(page) {
+        // audio_id = document.getElementById('background-music');
+        audio_id.play();
+
+        window.loadPage('test_page_2.html');
+        // setTimeout(function() {
+        //     window.loadPage('waveform.html');
+        // }, 5000); // Change pages after 5 seconds
+        // window.loadPage('welcome.html');
+  }
+    </script>
+    <!-- start_audio(); -->
+    <!-- <button onclick="loadPage('welcome.html')">Start</button> -->
+    <!-- <audio id="background-music" src="like_a_surgeon.mp3" loop autoplay></audio> -->
+    <button onclick="start_audio_and_jump()">Start</button>
+</div>
+
